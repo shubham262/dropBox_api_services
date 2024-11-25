@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 let db;
 const connectDatabase = () => {
-	mongoose.connect('mongodb://localhost:27017/dropbox');
+	mongoose.connect(process.env.MONGODB);
 
 	db = mongoose.connection;
 
