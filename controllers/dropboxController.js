@@ -52,6 +52,7 @@ export const authorizeDropBoxUser = async (req, res, next) => {
 				accessToken: access_token,
 				dropBoxExpiresIn: expires_in,
 				userId: account_id,
+				dropBoxTokenCreateAt: Date.now(),
 			},
 			JWT_SECRET,
 			{
@@ -86,8 +87,19 @@ export const fetchUserDocuments = async (req, res) => {
 			}
 		);
 
-		downloadFileFromDropbox(accessToken, response.data, userId);
-		res.json(response.data);
+		//filter .txt and .docs documents
+		const filteredFiles = response?.data?.entries?.filter(
+			(file) =>
+				file['.tag'] === 'file' &&
+				(file.name.endsWith('.txt') || file.name.endsWith('.docs'))
+		);
+		let data = {
+			...(response?.data || {}),
+			entries: [...(filteredFiles || [])],
+		};
+
+		downloadFileFromDropbox(accessToken, data, userId);
+		res.json(data);
 	} catch (error) {
 		console.error('Error fetching Dropbox documents:', error);
 		res.status(500).send('Error fetching Dropbox documents');
