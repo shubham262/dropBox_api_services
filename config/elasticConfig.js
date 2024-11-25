@@ -3,14 +3,18 @@ import { Client } from '@elastic/elasticsearch';
 let client;
 
 const createElasticClient = () => {
+	const CLOUDID = process.env.CLOUDID;
+	const USERNAME = process.env.USERNAME;
+	const PASSWORD = process.env.PASSWORD;
+	const NODEID = process.env.NODEID;
 	client = new Client({
 		cloud: {
-			id: '5b61f5253a7f4f2d8d7502d1c11c778e:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvJGVlOWIzMGJjOWM3NzRmZmJiOThhMThlM2FlYzZkMWY5JGRkNTE5YTliODNiYjQxNmNhMDYxMzkwN2ZmOGU4NDBk',
+			id: CLOUDID,
 		},
-		node: 'https://ee9b30bc9c774ffbb98a18e3aec6d1f9.us-central1.gcp.cloud.es.io:443',
+		node: NODEID,
 		auth: {
-			username: 'shubham',
-			password: 'Ve@12345',
+			username: USERNAME,
+			password: PASSWORD,
 		},
 	});
 };
