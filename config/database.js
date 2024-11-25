@@ -1,10 +1,7 @@
 import mongoose from 'mongoose';
 let db;
 const connectDatabase = () => {
-	mongoose.connect('mongodb://localhost:27017/TicketEntry', {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	});
+	mongoose.connect('mongodb://localhost:27017/dropbox');
 
 	db = mongoose.connection;
 

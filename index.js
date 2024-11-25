@@ -1,15 +1,19 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import { connectDatabase } from './config/database.js';
-import { AgentsRoute } from './routes/agentRoute.js';
-import { TicketRoute } from './routes/ticketRoute.js';
+import { dropboxRoute } from './routes/dropBoxRoute.js';
+import { createElasticClient } from './config/elasticConfig.js';
+
+dotenv.config();
 const app = express();
 
 //connecting to database
+createElasticClient();
 connectDatabase();
+app.use(cors());
 
 app.use(express.json());
-app.use('/api', AgentsRoute);
-app.use('/api', TicketRoute);
+app.use('/api', dropboxRoute);
 
 app.listen(3000, () => console.log('server started at port 3000'));
