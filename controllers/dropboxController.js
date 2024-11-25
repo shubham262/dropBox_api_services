@@ -58,7 +58,9 @@ export const authorizeDropBoxUser = async (req, res, next) => {
 				expiresIn: '48h',
 			}
 		);
-		res.redirect(`http://localhost:8080/drop-box-oauth?token=${token}`);
+		res.redirect(
+			`https://borneo-dashboard.vercel.app/drop-box-oauth?token=${token}`
+		);
 	} catch (error) {
 		return apiErrorHandler(res, error);
 	}
